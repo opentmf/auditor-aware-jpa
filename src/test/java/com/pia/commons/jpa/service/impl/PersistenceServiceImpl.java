@@ -9,7 +9,6 @@ import com.pia.commons.jpa.repository.CarRepository;
 import com.pia.commons.jpa.repository.entity.Car;
 import com.pia.commons.jpa.service.api.PersistenceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
 
 /**

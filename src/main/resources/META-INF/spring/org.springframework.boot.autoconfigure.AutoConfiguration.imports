@@ -1,2 +1,2 @@
-com.pia.commons.jpa.config.AuditorAwareJpaAutoConfiguration
-com.pia.commons.jpa.config.XAuditorAwareJpaAutoConfiguration
+com.pia.commons.jpa.config.servlet.ServletAuditorAwareJpaAutoConfiguration
+com.pia.commons.jpa.config.reactive.ReactiveAuditorAwareJpaAutoConfiguration

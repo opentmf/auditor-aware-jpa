@@ -62,10 +62,10 @@ class AuditorAwareReactiveIT extends AuditorAwareTestBase {
   }
 
   private ResponseSpec patchMercedes(String accessToken) {
-    return webTestClient.post()
+    return webTestClient.patch()
         .uri("/car/Mercedes")
         .headers(httpHeaders -> httpHeaders.setBearerAuth(accessToken))
-        .contentType(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.valueOf("application/merge-patch+json"))
         .bodyValue(PATCH_MERCEDES)
         .exchange();
   }
