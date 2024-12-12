@@ -1,0 +1,37 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16.4-alpine:///db
+    username: public
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+token:
+  client-id: backend_clients
+  client-secret: GNkhosQwnEi8CBSNRlvpRX7K0vCIRoTq
+  users:
+    read:
+      username: reader@pia-team.com
+      password: reader
+    write:
+      username: writer@pia-team.com
+      password: writer
+
+pia:
+  security:
+    jwk-set-uri: http://localhost:8092/realms/rehearsal-realm/protocol/openid-connect/certs
+    user-claim: email
+    authorities-claim: groups
+    secure-endpoints:
+      - method: POST
+        path: /car
+        roles:
+          - write
+      - method: PATCH
+        path: /car/*
+        roles:
+          - write
+    blacklist:
+      - /blacklist/**
+    whitelist:
+      - /whitelist/**
