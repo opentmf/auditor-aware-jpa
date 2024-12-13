@@ -32,6 +32,8 @@ The following mapped superclasses are provided:
 | AuditUpdatable    | created_on, created_by, modified_on, modified_by, version |
 
 ## Usage
+**Important:** This project requires Spring Boot 3.4.0 or up if you intend to use auditor-aware JPA with reactive layer.
+
 ### Maven Dependency
 ```xml
 <dependency>
@@ -39,7 +41,19 @@ The following mapped superclasses are provided:
   <artifactId>pia-commons-jpa</artifactId>
 </dependency>
 ```
-
+### application.yaml (Optional)
+In this library, there are two different auto-configurations depending on the web application type. Normally, Spring Boot will detect your web application type dynamically depending on your classpath and exposed API endpoints. However, if you want no surprises, you can explicitly specify the web application type in application configuration. Example:
+```yaml
+spring:
+  main:
+    web-application-type: servlet
+```
+Or
+```yaml
+spring:
+  main:
+    web-application-type: reactive
+```
 ### Inherit from a Mapped Superclass
 ```sql92
 @Entity
@@ -47,6 +61,19 @@ The following mapped superclasses are provided:
 public class SomeEntity extends AuditUpdatable {
   ...
 }
+```
+### Use With `DataJpaTest`
+Depending on your web-application-type, import correct autoconfiguration class. Either:
+```java
+@DataJpaTest
+@Import(ServletAuditorAwareJpaAutoConfiguration.class)
+...
+```
+Or
+```java
+@DataJpaTest
+@Import(ReactiveAuditorAwareJpaAutoConfiguration.class)
+...
 ```
 ## Version History
 ### 1.0.0
