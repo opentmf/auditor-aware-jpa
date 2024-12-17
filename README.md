@@ -78,3 +78,5 @@ Or
 ## Version History
 ### 1.0.0
 - Initial Version
+### 1.0.1
+- Updates pia-security to 1.0.7

@@ -16,7 +16,7 @@
 
     <testcontainers.version>1.20.4</testcontainers.version>
     <testcontainers-keycloak.version>3.5.1</testcontainers-keycloak.version>
-    <pia-security.version>1.0.6</pia-security.version>
+    <pia-security.version>1.0.7</pia-security.version>
     <pia-commons.version>1.0.0</pia-commons.version>
 
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
