@@ -4,7 +4,7 @@
 
   <groupId>com.pia.commons</groupId>
   <artifactId>auditor-aware-jpa</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.0.1</version>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -154,7 +154,7 @@
   <scm>
     <connection>scm:git:git@github.com:pia-commons/auditor-aware-jpa.git</connection>
     <developerConnection>scm:git:git@github.com:pia-commons/auditor-aware-jpa.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>auditor-aware-jpa-1.0.1</tag>
   </scm>
 
   <build>
