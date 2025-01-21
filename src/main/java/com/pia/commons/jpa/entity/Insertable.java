@@ -24,8 +24,8 @@ public class Insertable {
   @Column(nullable = false)
   private OffsetDateTime createdOn;
 
-  /** record version for optimistic concurrency control */
+  /** record update count for internal optimistic concurrency control */
   @Version
   @Column(nullable = false)
-  private int version;
+  private int updateCount;
 }

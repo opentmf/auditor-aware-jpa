@@ -20,7 +20,7 @@ public class CarConverter {
     carDto.setCreatedOn(car.getCreatedOn());
     carDto.setModifiedBy(car.getModifiedBy());
     carDto.setModifiedOn(car.getModifiedOn());
-    carDto.setVersion(car.getVersion());
+    carDto.setUpdateCount(car.getUpdateCount());
     return carDto;
   }
 

@@ -16,5 +16,5 @@ public class AuditUpdatableDto extends Updatable {
   private String modifiedBy;
   private OffsetDateTime createdOn;
   private String createdBy;
-  private int version;
+  private int updateCount;
 }

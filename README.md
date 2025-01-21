@@ -18,18 +18,18 @@ create table FOO (
     created_by varchar(100) not null,
     modified_on timestamp,
     modified_by varchar(100),
-    version int not null,
+    update_count int not null,
     ...
 );
 ```
 The following mapped superclasses are provided:
 
-| Mapped Superclass | Fields                                                    |
-|-------------------|-----------------------------------------------------------|
-| Insertable        | created_on, version                                       |
-| Updatable         | created_on, modified_on, version                          |
-| AuditInsertable   | created_on, created_by, version                           |
-| AuditUpdatable    | created_on, created_by, modified_on, modified_by, version |
+| Mapped Superclass | Fields                                                         |
+|-------------------|----------------------------------------------------------------|
+| Insertable        | created_on, update_count                                       |
+| Updatable         | created_on, modified_on, update_count                          |
+| AuditInsertable   | created_on, created_by, update_count                           |
+| AuditUpdatable    | created_on, created_by, modified_on, modified_by, update_count |
 
 ## Usage
 **Important:** This project requires Spring Boot 3.4.0 or up if you intend to use auditor-aware JPA with reactive layer.
@@ -80,3 +80,9 @@ Or
 - Initial Version
 ### 1.0.1
 - Updates pia-security to 1.0.7
+### 1.0.2
+- Changes version field name to update_count.
+- Updates spring-boot to 3.4.1
+- Updates testcontainers-keycloak to 3.6.0
+- Updates pia-security to 1.0.9
+- Updates pia-commons tp 1.0.2
