@@ -17,7 +17,7 @@ token:
       username: writer@pia-team.com
       password: writer
 
-pia:
+opentmf:
   security:
     jwk-set-uri: http://localhost:8092/realms/rehearsal-realm/protocol/openid-connect/certs
     user-claim: email

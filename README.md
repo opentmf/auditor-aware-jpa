@@ -36,11 +36,25 @@ The following mapped superclasses are provided:
 
 ### Maven Dependency
 ```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.opentmf</groupId>
+      <artifactId>opentmf-versions</artifactId>
+      <type>pom</type>
+      <scope>import</scope>
+      <version>RELEASE</version>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+```xml
 <dependency>
-  <groupId>com.pia.commons</groupId>
-  <artifactId>pia-commons-jpa</artifactId>
+  <groupId>org.opentmf.util</groupId>
+  <artifactId>auditor-aware-jpa</artifactId>
 </dependency>
 ```
+
 ### application.yaml (Optional)
 In this library, there are two different auto-configurations depending on the web application type. Normally, Spring Boot will detect your web application type dynamically depending on your classpath and exposed API endpoints. However, if you want no surprises, you can explicitly specify the web application type in application configuration. Example:
 ```yaml
@@ -55,7 +69,7 @@ spring:
     web-application-type: reactive
 ```
 ### Inherit from a Mapped Superclass
-```sql92
+```java
 @Entity
 @Table
 public class SomeEntity extends AuditUpdatable {
@@ -86,3 +100,6 @@ Or
 - Updates testcontainers-keycloak to 3.6.0
 - Updates pia-security to 1.0.9
 - Updates pia-commons tp 1.0.2
+### 1.0.3
+- Updates spring-boot to 3.4.4
+- First open source release 

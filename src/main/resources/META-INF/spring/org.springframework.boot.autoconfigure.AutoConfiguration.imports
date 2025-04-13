@@ -1,2 +1,2 @@
-com.pia.commons.jpa.config.servlet.ServletAuditorAwareJpaAutoConfiguration
-com.pia.commons.jpa.config.reactive.ReactiveAuditorAwareJpaAutoConfiguration
+org.opentmf.commons.jpa.config.servlet.ServletAuditorAwareJpaAutoConfiguration
+org.opentmf.commons.jpa.config.reactive.ReactiveAuditorAwareJpaAutoConfiguration
