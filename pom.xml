@@ -64,6 +64,7 @@
     <opentmf-commons.version>1.0.5</opentmf-commons.version>
 
     <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     <sonar-maven-plugin.version>5.1.0.4751</sonar-maven-plugin.version>
@@ -188,6 +189,11 @@
       <plugins>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${maven-deploy-plugin.version}</version>
         </plugin>
@@ -241,6 +247,7 @@
         </executions>
         <configuration>
           <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          <reuseForks>false</reuseForks>
         </configuration>
       </plugin>
       <plugin>

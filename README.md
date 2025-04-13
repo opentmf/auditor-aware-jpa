@@ -102,4 +102,4 @@ Or
 - Updates pia-commons tp 1.0.2
 ### 1.0.3
 - Updates spring-boot to 3.4.4
-- First open source release 
+- First open source release
