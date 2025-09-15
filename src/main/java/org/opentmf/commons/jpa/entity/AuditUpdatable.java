@@ -17,7 +17,7 @@ public class AuditUpdatable extends Updatable {
 
   /** record created by this user */
   @CreatedBy
-  @Column(length = 100, nullable = false)
+  @Column(length = 100, nullable = false, updatable = false)
   private String createdBy;
 
   /** record last updated by this user */

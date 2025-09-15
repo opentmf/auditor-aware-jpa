@@ -21,7 +21,7 @@ public class Insertable {
 
   /** record created at this date time. */
   @CreatedDate
-  @Column(nullable = false)
+  @Column(nullable = false, updatable = false)
   private OffsetDateTime createdOn;
 
   /** record update count for internal optimistic concurrency control */

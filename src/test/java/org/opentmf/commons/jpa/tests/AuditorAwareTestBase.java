@@ -41,7 +41,7 @@ abstract class AuditorAwareTestBase {
   static void startKeycloak(int publicPort) {
     @SuppressWarnings("resource")
     KeycloakContainer keycloakContainer = new KeycloakContainer().withRealmImportFile(
-        "realm/rehearsal-realm.json");
+            "realm/rehearsal-realm-realm.json");
     keycloakContainer.setPortBindings(List.of(publicPort + ":8080"));
     keycloakContainer.start();
   }

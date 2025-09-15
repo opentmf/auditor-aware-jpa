@@ -16,6 +16,6 @@ public class AuditInsertable extends Insertable {
 
   /** record created by this user */
   @CreatedBy
-  @Column(length = 100, nullable = false)
+  @Column(length = 100, nullable = false, updatable = false)
   private String createdBy;
 }
