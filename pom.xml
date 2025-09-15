@@ -5,7 +5,7 @@
   <groupId>org.opentmf.util</groupId>
   <artifactId>auditor-aware-jpa</artifactId>
   <name>auditor-aware-jpa</name>
-  <version>1.0.4</version>
+  <version>1.0.5-SNAPSHOT</version>
 
   <description>
     Auditor aware base JPA mapped super classes for either servlet
@@ -376,7 +376,7 @@
     <url>https://github.com/opentmf/auditor-aware-jpa</url>
     <connection>scm:git:git@github.com:opentmf/auditor-aware-jpa.git</connection>
     <developerConnection>scm:git:git@github.com:opentmf/auditor-aware-jpa.git</developerConnection>
-    <tag>auditor-aware-jpa-1.0.4</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
