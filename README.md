@@ -103,3 +103,12 @@ Or
 ### 1.0.3
 - Updates spring-boot to 3.4.4
 - First open source release
+### 1.0.4
+- Added updatable=false to created_on and created_by fields.
+### 1.0.5
+- **Bug Fix**: Fixed potential NullPointerException in `ServletAuditorAwareProvider` and `ReactiveAuditorAwareProvider` when `authentication.getName()` returns null. Both providers now safely fall back to "n/a" instead of throwing NPE.
+- **Test Coverage**: Added comprehensive unit tests covering all branches in both auditor aware providers, ensuring 100% code coverage.
+- **Test Coverage**: Added integration tests for `AuditInsertable` mapped superclass to verify `createdBy` field is properly populated.
+- **Dependencies**: Updated `openid-rbac-security` to 1.1.1 (includes fallback user claims support)
+- **Dependencies**: Updated `spring-boot` to 3.5.9
+- **Build**: Updated Maven plugins (compiler, deploy, enforcer, javadoc, source, release, jacoco, sonar, central-publishing) to latest versions

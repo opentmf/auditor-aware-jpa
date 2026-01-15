@@ -1,6 +1,8 @@
 package org.opentmf.commons.jpa.tests;
 
 import org.opentmf.commons.jpa.model.CarDto;
+import org.opentmf.commons.jpa.repository.LogEntryRepository;
+import org.opentmf.commons.jpa.repository.entity.LogEntry;
 import org.opentmf.commons.jpa.service.api.TokenService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,6 +14,7 @@ import org.springframework.security.test.web.reactive.server.SecurityMockServerC
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
+import org.springframework.transaction.annotation.Transactional;
 
 @ActiveProfiles("reactive")
 class AuditorAwareReactiveIT extends AuditorAwareTestBase {
@@ -22,6 +25,7 @@ class AuditorAwareReactiveIT extends AuditorAwareTestBase {
 
   @Autowired private TokenService reactiveTokenService;
   @Autowired ApplicationContext applicationContext;
+  @Autowired private LogEntryRepository logEntryRepository;
 
   private WebTestClient webTestClient;
 
@@ -68,5 +72,29 @@ class AuditorAwareReactiveIT extends AuditorAwareTestBase {
         .contentType(MediaType.valueOf("application/merge-patch+json"))
         .bodyValue(PATCH_MERCEDES)
         .exchange();
+  }
+
+  @Test
+  @Transactional
+  void testAuditInsertable_createsEntityWithCreatedBy() {
+    // Given: a LogEntry entity that extends AuditInsertable
+    LogEntry logEntry = new LogEntry();
+    logEntry.setId("log-002");
+    logEntry.setMessage("Test log message for reactive");
+    logEntry.setLevel("WARN");
+
+    // When: saving the entity
+    LogEntry saved = logEntryRepository.save(logEntry);
+
+    // Then: createdBy should be populated by the auditor aware provider
+    Assertions.assertNotNull(saved.getCreatedBy());
+    Assertions.assertNotNull(saved.getCreatedOn());
+    Assertions.assertEquals(0, saved.getUpdateCount());
+    // Verify it doesn't have modifiedBy (since it extends AuditInsertable, not AuditUpdatable)
+    // Note: We can't directly check for the absence of modifiedBy field, but we can verify
+    // that the entity was created successfully with createdBy populated
+    Assertions.assertEquals("log-002", saved.getId());
+    Assertions.assertEquals("Test log message for reactive", saved.getMessage());
+    Assertions.assertEquals("WARN", saved.getLevel());
   }
 }

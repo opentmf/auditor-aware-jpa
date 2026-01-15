@@ -22,7 +22,7 @@
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A permissive open-source license</comments>
     </license>
@@ -57,25 +57,25 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <spring-boot.version>3.5.5</spring-boot.version>
+    <spring-boot.version>3.5.9</spring-boot.version>
 
-    <testcontainers.version>1.21.3</testcontainers.version>
-    <testcontainers-keycloak.version>3.8.0</testcontainers-keycloak.version>
-    <openid-rbac-security.version>1.1.0</openid-rbac-security.version>
-    <opentmf-commons.version>1.0.6</opentmf-commons.version>
+    <testcontainers.version>1.21.4</testcontainers.version>
+    <testcontainers-keycloak.version>4.1.1</testcontainers-keycloak.version>
+    <openid-rbac-security.version>1.1.1</openid-rbac-security.version>
+    <opentmf-commons.version>1.0.7</opentmf-commons.version>
 
-    <maven-enforcer-plugin.version>3.6.1</maven-enforcer-plugin.version>
-    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-    <maven-javadoc-plugin.version>3.11.3</maven-javadoc-plugin.version>
-    <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
-    <sonar-maven-plugin.version>5.2.0.4988</sonar-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
+    <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
+    <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
+    <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
+    <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
+    <sonar-maven-plugin.version>5.5.0.6356</sonar-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
     <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
-    <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+    <maven-release-plugin.version>3.3.1</maven-release-plugin.version>
     <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
-    <central-publishing-maven-plugin.version>0.8.0</central-publishing-maven-plugin.version>
+    <central-publishing-maven-plugin.version>0.10.0</central-publishing-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -185,23 +185,91 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+
+          <!-- Attach sources.jar -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven-source-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Attach javadoc.jar -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven-javadoc-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <failOnWarnings>false</failOnWarnings>
+                  <failOnError>false</failOnError>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Sign artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven-gpg-plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Publish to Sonatype Central Portal -->
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central-publishing-maven-plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>publish-to-central</publishingServerId>
+              <autoPublish>true</autoPublish>
+            </configuration>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
     <pluginManagement>
       <plugins>
         <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven-deploy-plugin.version}</version>
-        </plugin>
-        <plugin>
           <groupId>org.sonarsource.scanner.maven</groupId>
           <artifactId>sonar-maven-plugin</artifactId>
-          <version>${sonar-maven-plugin.version}</version>
+          <version>${sonar-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>${maven-release-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -252,69 +320,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${maven-source-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <version>${maven-javadoc-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <failOnWarnings>false</failOnWarnings>
-              <failOnError>false</failOnError>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>${maven-gpg-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
-        <configuration>
-          <useReleaseProfile>false</useReleaseProfile>
-          <goals>deploy</goals>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
-        <version>${central-publishing-maven-plugin.version}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <publishingServerId>publish-to-central</publishingServerId>
-          <autoPublish>true</autoPublish>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>${jacoco-maven-plugin.version}</version>
@@ -333,7 +338,7 @@
           </execution>
           <execution>
             <configuration>
-              <haltOnFailure>false</haltOnFailure>
+              <haltOnFailure>true</haltOnFailure>
               <rules>
                 <rule>
                   <element>BUNDLE</element>
@@ -369,12 +374,20 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <configuration>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
 
   <scm>
     <url>https://github.com/opentmf/auditor-aware-jpa</url>
-    <connection>scm:git:git@github.com:opentmf/auditor-aware-jpa.git</connection>
+    <connection>scm:git:https://github.com:opentmf/auditor-aware-jpa.git</connection>
     <developerConnection>scm:git:git@github.com:opentmf/auditor-aware-jpa.git</developerConnection>
     <tag>HEAD</tag>
   </scm>

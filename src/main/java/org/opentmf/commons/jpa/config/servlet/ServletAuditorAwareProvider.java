@@ -22,10 +22,11 @@ public class ServletAuditorAwareProvider implements AuditorAware<String> {
 
   private Optional<String> getUsername(SecurityContext securityContext) {
     Authentication authentication = securityContext.getAuthentication();
-    return Optional.of(
-        authentication != null && authentication.isAuthenticated()
-            ? authentication.getName()
-            : NA);
+    if (authentication != null && authentication.isAuthenticated()) {
+      String name = authentication.getName();
+      return Optional.of(name != null ? name : NA);
+    }
+    return Optional.of(NA);
   }
 
 }

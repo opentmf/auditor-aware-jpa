@@ -21,9 +21,14 @@ public class ReactiveAuditorAwareProvider implements AuditorAware<String> {
   }
 
   private String getUsername(SecurityContext securityContext) {
+    if (securityContext == null) {
+      return NA;
+    }
     Authentication authentication = securityContext.getAuthentication();
-    return authentication != null && authentication.isAuthenticated()
-        ? authentication.getName()
-        : NA;
+    if (authentication != null && authentication.isAuthenticated()) {
+      String name = authentication.getName();
+      return name != null ? name : NA;
+    }
+    return NA;
   }
 }
