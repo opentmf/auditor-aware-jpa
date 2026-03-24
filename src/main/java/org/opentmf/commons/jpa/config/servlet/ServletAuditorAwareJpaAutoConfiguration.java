@@ -5,7 +5,7 @@ import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebA
 import org.opentmf.commons.jpa.config.AuditorAwareJpaUtil.OffsetDateTimeProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
+import org.springframework.boot.data.jpa.autoconfigure.DataJpaRepositoriesAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 /**
  * @author Gokhan Demir
  */
-@AutoConfiguration(after = JpaRepositoriesAutoConfiguration.class)
+@AutoConfiguration(after = DataJpaRepositoriesAutoConfiguration.class)
 @ConditionalOnWebApplication(type = SERVLET)
 @EnableJpaAuditing(
     modifyOnCreate = false,

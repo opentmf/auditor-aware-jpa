@@ -4,7 +4,7 @@ import static org.opentmf.commons.jpa.config.AuditorAwareJpaUtil.NA;
 
 import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 
