@@ -1,10 +1,10 @@
 package org.opentmf.commons.jpa.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.opentmf.commons.util.JacksonUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import tools.jackson.databind.json.JsonMapper;
 
 /**
  * @author Gokhan Demir
@@ -14,7 +14,7 @@ public class JacksonConfig {
 
   @Primary
   @Bean
-  public ObjectMapper objectMapper() {
-    return JacksonUtil.getDefaultObjectMapper();
+  public JsonMapper jsonMapper() {
+    return JacksonUtil.getDefaultJsonMapper();
   }
 }

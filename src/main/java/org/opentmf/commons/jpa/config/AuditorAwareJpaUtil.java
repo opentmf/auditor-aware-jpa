@@ -5,7 +5,7 @@ import java.time.temporal.TemporalAccessor;
 import java.util.Optional;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.auditing.DateTimeProvider;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Gokhan Demir

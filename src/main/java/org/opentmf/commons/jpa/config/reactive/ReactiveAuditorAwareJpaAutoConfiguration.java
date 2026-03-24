@@ -5,13 +5,13 @@ import static org.springframework.boot.autoconfigure.condition.ConditionalOnWebA
 import org.opentmf.commons.jpa.config.AuditorAwareJpaUtil.OffsetDateTimeProvider;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
-import org.springframework.boot.web.reactive.filter.OrderedWebFilter;
+import org.springframework.boot.data.jpa.autoconfigure.DataJpaRepositoriesAutoConfiguration;
+import org.springframework.boot.webflux.filter.OrderedWebFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.auditing.DateTimeProvider;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.web.server.ServerWebExchange;
@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 /**
  * @author Gokhan Demir
  */
-@AutoConfiguration(after = JpaRepositoriesAutoConfiguration.class)
+@AutoConfiguration(after = DataJpaRepositoriesAutoConfiguration.class)
 @ConditionalOnWebApplication(type = REACTIVE)
 @EnableJpaAuditing(
     modifyOnCreate = false,

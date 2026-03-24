@@ -32,7 +32,7 @@ The following mapped superclasses are provided:
 | AuditUpdatable    | created_on, created_by, modified_on, modified_by, update_count |
 
 ## Usage
-**Important:** This project requires Spring Boot 3.4.0 or up if you intend to use auditor-aware JPA with reactive layer.
+**Important:** Version 2.x requires Spring Boot 4.0.4 or later. For Spring Boot 3.x, use version 1.x.
 
 ### Maven Dependency
 ```xml
@@ -89,26 +89,23 @@ Or
 @Import(ReactiveAuditorAwareJpaAutoConfiguration.class)
 ...
 ```
-## Version History
-### 1.0.0
-- Initial Version
-### 1.0.1
-- Updates pia-security to 1.0.7
-### 1.0.2
-- Changes version field name to update_count.
-- Updates spring-boot to 3.4.1
-- Updates testcontainers-keycloak to 3.6.0
-- Updates pia-security to 1.0.9
-- Updates pia-commons tp 1.0.2
-### 1.0.3
-- Updates spring-boot to 3.4.4
-- First open source release
-### 1.0.4
-- Added updatable=false to created_on and created_by fields.
-### 1.0.5
-- **Bug Fix**: Fixed potential NullPointerException in `ServletAuditorAwareProvider` and `ReactiveAuditorAwareProvider` when `authentication.getName()` returns null. Both providers now safely fall back to "n/a" instead of throwing NPE.
-- **Test Coverage**: Added comprehensive unit tests covering all branches in both auditor aware providers, ensuring 100% code coverage.
-- **Test Coverage**: Added integration tests for `AuditInsertable` mapped superclass to verify `createdBy` field is properly populated.
-- **Dependencies**: Updated `openid-rbac-security` to 1.1.1 (includes fallback user claims support)
-- **Dependencies**: Updated `spring-boot` to 3.5.9
-- **Build**: Updated Maven plugins (compiler, deploy, enforcer, javadoc, source, release, jacoco, sonar, central-publishing) to latest versions
+### Use With QueryDSL
+If your project uses QueryDSL, the annotation processor needs to know about the mapped superclasses from this library. Create a `package-info.java` in the package where your entity classes reside:
+```java
+@QueryEntities({
+    Insertable.class,
+    Updatable.class,
+    AuditInsertable.class,
+    AuditUpdatable.class})
+package com.example.repository.entity;
+
+import com.querydsl.core.annotations.QueryEntities;
+import org.opentmf.commons.jpa.entity.AuditInsertable;
+import org.opentmf.commons.jpa.entity.AuditUpdatable;
+import org.opentmf.commons.jpa.entity.Insertable;
+import org.opentmf.commons.jpa.entity.Updatable;
+```
+You only need to list the superclasses you actually extend. Without this, QueryDSL will not generate the `Q` types for the inherited fields.
+
+## Changelog
+See [CHANGELOG.md](CHANGELOG.md) for version history.
