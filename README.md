@@ -1,4 +1,38 @@
 # auditor-aware-jpa
+
+> **End of life.** This artifact is superseded by
+> [`org.opentmf.util:auditor-aware:3.0.0`](https://github.com/opentmf/auditor-aware).
+> The successor drops the JPA-specific mapped superclasses, becomes
+> persistence-agnostic, and ships the `AuditorAware<String>` /
+> `DateTimeProvider` beans on their own — usable from JPA, Mongo, JDBC,
+> WebFlux, or any context where a Spring Security principal is readable.
+>
+> The `2.x` line continues to receive critical fixes for one LTS window per
+> opentmf policy and will be archived alongside `opentmf-versions:4.0.0`.
+> No new features will land here.
+>
+> **To migrate:** see [MIGRATING-FROM-2.x.md](https://github.com/opentmf/auditor-aware/blob/develop/MIGRATING-FROM-2.x.md)
+> in the new repo. For most callers it is six mechanical steps:
+>
+> 1. Replace `<artifactId>auditor-aware-jpa</artifactId>` with `<artifactId>auditor-aware</artifactId>`.
+> 2. Rename imports `org.opentmf.commons.jpa.config.*` → `org.opentmf.commons.audit.*`.
+> 3. Rename auto-config class references (drop `Jpa`):
+>    `ServletAuditorAwareJpaAutoConfiguration` → `ServletAuditorAwareAutoConfiguration`,
+>    `ReactiveAuditorAwareJpaAutoConfiguration` → `ReactiveAuditorAwareAutoConfiguration`.
+> 4. Rename bean qualifiers `servletAuditorAware` / `reactiveAuditorAware` → `auditorAware`,
+>    and the date-time-provider qualifiers → `auditorAwareDateTimeProvider`.
+> 5. Add `@EnableJpaAuditing(auditorAwareRef = "auditorAware",
+>    dateTimeProviderRef = "auditorAwareDateTimeProvider")` to your
+>    `@SpringBootApplication` (the new library no longer flips this switch
+>    for you). Mongo users add `@EnableMongoAuditing` with the same refs.
+> 6. If your entities extended `Insertable` / `Updatable` /
+>    `AuditInsertable` / `AuditUpdatable`, copy the four classes from the
+>    new README's "Cookbook" section into your own package and update each
+>    entity's `extends` clause. The cookbook code is verbatim what `2.x`
+>    shipped — tweak column names, lengths, or `@Version` type as you see fit.
+
+---
+
 Auditor aware mapped superclasses for JPA.
 
 If your project:

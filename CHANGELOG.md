@@ -5,9 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.1/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-## [2.0.0] - unreleased
+## [2.0.0] - 2026-03-24
 
 ### Changed
 - Upgraded to Spring Boot 4.0.4 (Spring Framework 7, Spring Security 7, Hibernate 7.1, Jakarta Persistence 3.2, Jackson 3).
